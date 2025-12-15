@@ -1,0 +1,8 @@
+node_modules
+dist
+.vite
+.DS_Store
+*.log
+*.core
+core
+node_modules/.tmp
