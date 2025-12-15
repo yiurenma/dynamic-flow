@@ -1,4 +1,4 @@
-import { Save, User, Bell, Shield, Database, Palette } from 'lucide-react'
+import { Save, User, Bell, Shield, Database, Sparkles, AlertTriangle } from 'lucide-react'
 
 export default function Settings() {
   const settingsSections = [
@@ -6,6 +6,7 @@ export default function Settings() {
       icon: User,
       title: '账户设置',
       description: '管理您的账户信息和偏好',
+      gradient: 'from-blue-500 to-cyan-500',
       fields: [
         { label: '用户名', type: 'text', value: 'admin', placeholder: '输入用户名' },
         { label: '邮箱', type: 'email', value: 'admin@dynamic-flow.com', placeholder: '输入邮箱' },
@@ -16,6 +17,7 @@ export default function Settings() {
       icon: Bell,
       title: '通知设置',
       description: '配置系统通知和提醒',
+      gradient: 'from-purple-500 to-pink-500',
       fields: [
         { label: '邮件通知', type: 'toggle', value: true },
         { label: '执行失败提醒', type: 'toggle', value: true },
@@ -26,6 +28,7 @@ export default function Settings() {
       icon: Shield,
       title: '安全设置',
       description: '保护您的账户安全',
+      gradient: 'from-green-500 to-emerald-500',
       fields: [
         { label: '双因素认证', type: 'toggle', value: false },
         { label: 'API 密钥', type: 'text', value: '••••••••••••••••', placeholder: 'API Key' },
@@ -36,6 +39,7 @@ export default function Settings() {
       icon: Database,
       title: '系统设置',
       description: '配置系统参数和限制',
+      gradient: 'from-orange-500 to-red-500',
       fields: [
         { label: '最大并发执行数', type: 'number', value: '100', placeholder: '输入数量' },
         { label: '日志保留天数', type: 'number', value: '30', placeholder: '输入天数' },
@@ -49,50 +53,55 @@ export default function Settings() {
       {/* 页面标题 */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">系统设置</h1>
-          <p className="text-gray-500 mt-1">管理系统配置和偏好设置</p>
+          <div className="flex items-center space-x-3 mb-2">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              系统设置
+            </h1>
+            <Sparkles className="w-6 h-6 text-yellow-400 animate-pulse" />
+          </div>
+          <p className="text-gray-400">管理系统配置和偏好设置</p>
         </div>
-        <button className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+        <button className="flex items-center space-x-2 px-6 py-3 bg-gradient-primary rounded-xl text-white shadow-glow hover:shadow-glow-lg transition-all hover:scale-105">
           <Save className="w-5 h-5" />
-          <span>保存设置</span>
+          <span className="font-semibold">保存设置</span>
         </button>
       </div>
 
       {/* 设置面板 */}
       <div className="space-y-6">
         {settingsSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-                  <section.icon className="w-5 h-5 text-primary-600" />
+          <div key={sectionIndex} className="glass-dark border border-white/10 rounded-2xl overflow-hidden hover:scale-[1.02] transition-all duration-300">
+            <div className={`p-6 border-b border-white/10 bg-gradient-to-r ${section.gradient} bg-opacity-10`}>
+              <div className="flex items-center space-x-4">
+                <div className={`w-12 h-12 bg-gradient-to-br ${section.gradient} rounded-xl flex items-center justify-center shadow-glow`}>
+                  <section.icon className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">{section.title}</h2>
-                  <p className="text-sm text-gray-500">{section.description}</p>
+                  <h2 className="text-lg font-bold text-white">{section.title}</h2>
+                  <p className="text-sm text-gray-400">{section.description}</p>
                 </div>
               </div>
             </div>
             <div className="p-6 space-y-4">
               {section.fields.map((field, fieldIndex) => (
-                <div key={fieldIndex} className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-gray-700">{field.label}</label>
+                <div key={fieldIndex} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
+                  <label className="text-sm font-semibold text-gray-300">{field.label}</label>
                   {field.type === 'toggle' ? (
                     <button
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        field.value ? 'bg-primary-600' : 'bg-gray-200'
+                      className={`relative inline-flex h-7 w-14 items-center rounded-full transition-all ${
+                        field.value ? 'bg-gradient-primary shadow-glow' : 'bg-white/10'
                       }`}
                     >
                       <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          field.value ? 'translate-x-6' : 'translate-x-1'
+                        className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform shadow-lg ${
+                          field.value ? 'translate-x-8' : 'translate-x-1'
                         }`}
                       />
                     </button>
                   ) : field.type === 'select' ? (
-                    <select className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <select className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-500/50">
                       {field.options?.map((option, optIndex) => (
-                        <option key={optIndex} value={option}>
+                        <option key={optIndex} value={option} className="bg-gray-900">
                           {option}
                         </option>
                       ))}
@@ -102,7 +111,7 @@ export default function Settings() {
                       type={field.type}
                       value={field.value}
                       placeholder={field.placeholder}
-                      className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 w-64"
+                      className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 w-64"
                     />
                   )}
                 </div>
@@ -113,27 +122,32 @@ export default function Settings() {
       </div>
 
       {/* 危险区域 */}
-      <div className="bg-white rounded-lg border border-red-200 overflow-hidden">
-        <div className="p-6 border-b border-red-200 bg-red-50">
-          <h2 className="text-lg font-semibold text-red-900">危险区域</h2>
-          <p className="text-sm text-red-600 mt-1">这些操作无法撤销，请谨慎操作</p>
+      <div className="glass-dark border border-red-500/30 rounded-2xl overflow-hidden">
+        <div className="p-6 border-b border-red-500/30 bg-gradient-to-r from-red-500/10 to-orange-500/10">
+          <div className="flex items-center space-x-3">
+            <AlertTriangle className="w-6 h-6 text-red-400" />
+            <div>
+              <h2 className="text-lg font-bold text-red-400">危险区域</h2>
+              <p className="text-sm text-red-300/70 mt-1">这些操作无法撤销，请谨慎操作</p>
+            </div>
+          </div>
         </div>
         <div className="p-6 space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
             <div>
-              <p className="font-medium text-gray-900">清空所有日志</p>
-              <p className="text-sm text-gray-500">删除所有执行日志和历史记录</p>
+              <p className="font-semibold text-white">清空所有日志</p>
+              <p className="text-sm text-gray-400">删除所有执行日志和历史记录</p>
             </div>
-            <button className="px-4 py-2 border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-colors">
+            <button className="px-6 py-2.5 border border-red-500/30 text-red-400 rounded-xl hover:bg-red-500/10 transition-all font-semibold">
               清空日志
             </button>
           </div>
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+          <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
             <div>
-              <p className="font-medium text-gray-900">重置系统</p>
-              <p className="text-sm text-gray-500">将系统恢复到初始状态</p>
+              <p className="font-semibold text-white">重置系统</p>
+              <p className="text-sm text-gray-400">将系统恢复到初始状态</p>
             </div>
-            <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            <button className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl hover:shadow-glow transition-all font-semibold">
               重置系统
             </button>
           </div>
